@@ -397,3 +397,114 @@
     padding: 15px;
   }
 }
+
+
+.dashboard-recentes {
+  background: #292e37;
+  border: 1px solid #3b414c;
+  border-radius: 14px;
+  padding: 24px;
+  margin-top: 24px;
+}
+
+.dashboard-recentes-topo {
+  margin-bottom: 22px;
+}
+
+.dashboard-recentes-topo h2 {
+  font-size: 18px;
+  margin-bottom: 7px;
+}
+
+.dashboard-recentes-topo p {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.dashboard-recentes-lista {
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-recente-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 0;
+  border-bottom: 1px solid #3b414c;
+}
+
+.dashboard-recente-item:last-child {
+  border-bottom: none;
+}
+
+.dashboard-recente-icone {
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  background: #373b70;
+  color: #a5b4fc;
+}
+
+.dashboard-recente-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.dashboard-recente-info strong {
+  font-size: 14px;
+}
+
+.dashboard-recente-info span {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.dashboard-recente-valor {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 7px;
+}
+
+.dashboard-recente-valor strong {
+  font-size: 14px;
+}
+
+.status-recente {
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.status-recente.ativa {
+  color: #facc15;
+}
+
+.status-recente.finalizada {
+  color: #86efac;
+}
+
+.dashboard-sem-locacoes {
+  color: #9ca3af;
+  padding: 20px 0;
+}
+
+@media (max-width: 600px) {
+  .dashboard-recentes {
+    padding: 17px;
+  }
+
+  .dashboard-recente-item {
+    gap: 9px;
+  }
+
+  .dashboard-recente-info span {
+    font-size: 10px;
+  }
+}

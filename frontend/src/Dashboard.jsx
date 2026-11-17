@@ -28,6 +28,7 @@ import Historico from './Historico';
 function Dashboard({ usuario, onSair }) {
   const [paginaAtiva, setPaginaAtiva] = useState('Visão geral');
   const [menuAberto, setMenuAberto] = useState(false);
+const [locacoesRecentes, setLocacoesRecentes] = useState([]);
 
   const [indicadores, setIndicadores] = useState({
     totalVeiculos: 0,
@@ -60,6 +61,7 @@ function Dashboard({ usuario, onSair }) {
         );
 
         setIndicadores(resposta.data);
+        setLocacoesRecentes(resposta.data.locacoesRecentes || []);
 
       } catch (error) {
         console.error('Erro ao carregar indicadores:', error);
@@ -114,6 +116,54 @@ function Dashboard({ usuario, onSair }) {
               <div className="indicador-icone">
                 <CheckCircle2 size={23} />
               </div>
+
+<div className="dashboard-recentes">
+  <div className="dashboard-recentes-topo">
+    <div>
+      <h2>Locações recentes</h2>
+      <p>Últimas movimentações do sistema</p>
+    </div>
+  </div>
+
+  {locacoesRecentes.length === 0 ? (
+    <p className="dashboard-sem-locacoes">
+      Nenhuma locação registrada.
+    </p>
+  ) : (
+    <div className="dashboard-recentes-lista">
+      {locacoesRecentes.map((locacao) => (
+        <div className="dashboard-recente-item" key={locacao.id}>
+          <div className="dashboard-recente-icone">
+            <CarFront size={21} />
+          </div>
+
+          <div className="dashboard-recente-info">
+            <strong>
+              {locacao.veiculo?.marca} {locacao.veiculo?.modelo}
+            </strong>
+            <span>
+              {locacao.veiculo?.placa} · {locacao.usuario?.nome}
+            </span>
+          </div>
+
+          <div className="dashboard-recente-valor">
+            <strong>
+              {formatarMoeda(locacao.valorTotal)}
+            </strong>
+            <span className={
+              locacao.status === 'ATIVA'
+                ? 'status-recente ativa'
+                : 'status-recente finalizada'
+            }>
+              {locacao.status}
+            </span>
+          </div>
+        </div>
+      ))}
+    </div>
+  )}
+</div>
+
 
               <span>Disponíveis</span>
 
