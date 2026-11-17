@@ -1,0 +1,168 @@
+
+.historico-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  color: #f5f6f8;
+}
+
+.historico-topo h1 {
+  font-size: 26px;
+  margin-bottom: 8px;
+}
+
+.historico-topo p {
+  color: #9ca3af;
+  font-size: 14px;
+}
+
+.historico-mensagem {
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: #3b3022;
+  border: 1px solid #80602e;
+  color: #fcd58a;
+  font-size: 14px;
+}
+
+.historico-resumo {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 20px;
+}
+
+.historico-resumo-card {
+  display: flex;
+  align-items: center;
+  gap: 17px;
+  padding: 22px;
+  background: #292e37;
+  border: 1px solid #3b414c;
+  border-radius: 14px;
+}
+
+.historico-icone {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: #373b70;
+  color: #a5b4fc;
+  flex-shrink: 0;
+}
+
+.historico-resumo-card div:last-child {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  min-width: 0;
+}
+
+.historico-resumo-card span {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.historico-resumo-card strong {
+  color: #f5f6f8;
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.historico-lista-card {
+  padding: 24px;
+  background: #292e37;
+  border: 1px solid #3b414c;
+  border-radius: 14px;
+}
+
+.historico-card-titulo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.historico-card-titulo svg {
+  color: #a5b4fc;
+}
+
+.historico-card-titulo h2 {
+  font-size: 18px;
+}
+
+.historico-tabela-area {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.historico-tabela {
+  width: 100%;
+  min-width: 850px;
+  border-collapse: collapse;
+}
+
+.historico-tabela th {
+  padding: 14px 12px;
+  text-align: left;
+  color: #9ca3af;
+  font-size: 12px;
+  font-weight: 600;
+  border-bottom: 1px solid #414854;
+}
+
+.historico-tabela td {
+  padding: 16px 12px;
+  color: #e5e7eb;
+  font-size: 13px;
+  border-bottom: 1px solid #3b414c;
+}
+
+.historico-valor {
+  font-weight: 600;
+  color: #86efac !important;
+}
+
+.historico-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #203c30;
+  color: #86efac;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.historico-vazio {
+  padding: 40px 20px;
+  text-align: center;
+  color: #9ca3af;
+}
+
+.historico-vazio svg {
+  margin-bottom: 12px;
+  color: #64748b;
+}
+
+@media (max-width: 700px) {
+  .historico-resumo {
+    grid-template-columns: 1fr;
+  }
+
+  .historico-lista-card {
+    padding: 17px;
+  }
+
+  .historico-topo h1 {
+    font-size: 22px;
+  }
+
+  .historico-resumo-card strong {
+    font-size: 19px;
+  }
+}

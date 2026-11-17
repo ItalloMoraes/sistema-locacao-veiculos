@@ -22,6 +22,8 @@ import './Dashboard.css';
 
 import Locacoes from './Locacoes';
 
+import Historico from './Historico';
+
 
 function Dashboard({ usuario, onSair }) {
   const [paginaAtiva, setPaginaAtiva] = useState('Visão geral');
@@ -221,21 +223,9 @@ function Dashboard({ usuario, onSair }) {
       );
     }
 
-    if (paginaAtiva === 'Histórico') {
-      return (
-        <div className="pagina-em-construcao">
-          <div className="pagina-icone">
-            <History size={38} />
-          </div>
-
-          <h2>Histórico de locações</h2>
-
-          <p>
-            Aqui serão exibidas as locações finalizadas.
-          </p>
-        </div>
-      );
-    }
+if (paginaAtiva === 'Histórico') {
+  return <Historico />;
+}
   }
 
   return (
