@@ -94,13 +94,14 @@ async function listarMinhasLocacoes(usuarioId) {
   });
 }
 
+
 async function devolverVeiculo(locacaoId, usuarioId) {
   return await prisma.$transaction(async (tx) => {
 
     const locacao = await tx.locacao.findFirst({
       where: {
         id: locacaoId,
-        usuarioId: usuarioId
+        usuarioId
       }
     });
 
@@ -110,32 +111,44 @@ async function devolverVeiculo(locacaoId, usuarioId) {
       throw erro;
     }
 
-    if (locacao.status === 'FINALIZADA') {
+    const resultado = await tx.locacao.updateMany({
+      where: {
+        id: locacaoId,
+        usuarioId,
+        status: 'ATIVA'
+      },
+      data: {
+        status: 'FINALIZADA',
+        dataDevolucao: new Date()
+      }
+    });
+
+    if (resultado.count === 0) {
       const erro = new Error('Esta locação já foi finalizada.');
       erro.status = 409;
       throw erro;
     }
 
-    const dataDevolucao = new Date();
-
-    const locacaoAtualizada = await tx.locacao.update({
-      where: { id: locacaoId },
-      data: {
-        dataDevolucao: dataDevolucao,
-        status: 'FINALIZADA'
-      }
-    });
-
     await tx.veiculo.update({
-      where: { id: locacao.veiculoId },
+      where: {
+        id: locacao.veiculoId
+      },
       data: {
         disponibilidade: true
       }
     });
 
-    return locacaoAtualizada;
+    return await tx.locacao.findUnique({
+      where: {
+        id: locacaoId
+      },
+      include: {
+        veiculo: true
+      }
+    });
   });
 }
+
 
 module.exports = {
   cadastrarLocacao,
