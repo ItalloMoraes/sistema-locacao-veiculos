@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
+
 import {
   LayoutDashboard,
   CarFront,
@@ -15,8 +16,12 @@ import {
   CircleDollarSign
 } from 'lucide-react';
 
+
 import Veiculos from './Veiculos';
 import './Dashboard.css';
+
+import Locacoes from './Locacoes';
+
 
 function Dashboard({ usuario, onSair }) {
   const [paginaAtiva, setPaginaAtiva] = useState('Visão geral');
@@ -194,6 +199,10 @@ function Dashboard({ usuario, onSair }) {
     if (paginaAtiva === 'Veículos') {
       return <Veiculos />;
     }
+
+    if (paginaAtiva === 'Locações') {
+  return <Locacoes />;
+}
 
     if (paginaAtiva === 'Locações') {
       return (
