@@ -1,15 +1,43 @@
 const prisma = require('../config/database');
 
+
 async function cadastrarLocacao(usuarioId, veiculoId, dataPrevisaoDevolucao) {
-  const previsao = new Date(dataPrevisaoDevolucao);
-
-  if (Number.isNaN(previsao.getTime())) {
-    const erro = new Error('Data de previsão de devolução inválida.');
-    erro.status = 400;
-    throw erro;
-  }
-
   return await prisma.$transaction(async (tx) => {
+
+    // 1. Validar os dados recebidos
+    if (
+      !Number.isInteger(usuarioId) ||
+      usuarioId <= 0 ||
+      !Number.isInteger(veiculoId) ||
+      veiculoId <= 0
+    ) {
+      const erro = new Error('Usuário ou veículo inválido.');
+      erro.status = 400;
+      throw erro;
+    }
+
+    // 2. Validar a data prevista
+    const dataInicio = new Date();
+    const dataPrevisao = new Date(dataPrevisaoDevolucao);
+
+    if (
+      !dataPrevisaoDevolucao ||
+      Number.isNaN(dataPrevisao.getTime())
+    ) {
+      const erro = new Error('Data de devolução inválida.');
+      erro.status = 400;
+      throw erro;
+    }
+
+    if (dataPrevisao <= dataInicio) {
+      const erro = new Error(
+        'A previsão de devolução deve ser posterior ao início da locação.'
+      );
+      erro.status = 400;
+      throw erro;
+    }
+
+    // 3. Consultar o veículo
     const veiculo = await tx.veiculo.findUnique({
       where: { id: veiculoId }
     });
@@ -21,26 +49,22 @@ async function cadastrarLocacao(usuarioId, veiculoId, dataPrevisaoDevolucao) {
     }
 
     if (!veiculo.disponibilidade) {
-      const erro = new Error('Este veículo não está disponível para locação.');
+      const erro = new Error('Este veículo não está disponível.');
       erro.status = 409;
       throw erro;
     }
 
-    const dataInicio = new Date();
+    // 4. Calcular o valor da locação
+    const diferencaEmMilissegundos =
+      dataPrevisao.getTime() - dataInicio.getTime();
 
-    if (previsao <= dataInicio) {
-      const erro = new Error('A previsão de devolução deve ser posterior ao início da locação.');
-      erro.status = 400;
-      throw erro;
-    }
+    const dias = Math.ceil(
+      diferencaEmMilissegundos / (1000 * 60 * 60 * 24)
+    );
 
-    const diferencaEmMs = previsao.getTime() - dataInicio.getTime();
-    const horas = diferencaEmMs / (1000 * 60 * 60);
-    const quantidadeDiarias = Math.ceil(horas / 24);
+    const valorTotal = Number(veiculo.diaria) * dias;
 
-    const valorTotal = Number(veiculo.diaria) * quantidadeDiarias;
-
-    // Atualização condicional para evitar duas locações simultâneas
+    // 5. Atualizar somente se ainda estiver disponível
     const atualizacao = await tx.veiculo.updateMany({
       where: {
         id: veiculoId,
@@ -52,17 +76,20 @@ async function cadastrarLocacao(usuarioId, veiculoId, dataPrevisaoDevolucao) {
     });
 
     if (atualizacao.count === 0) {
-      const erro = new Error('Este veículo acabou de ser alugado por outra pessoa.');
+      const erro = new Error(
+        'Este veículo acabou de ser alugado por outro usuário.'
+      );
       erro.status = 409;
       throw erro;
     }
 
+    // 6. Registrar a locação
     const locacao = await tx.locacao.create({
       data: {
         usuarioId,
         veiculoId,
         dataInicio,
-        dataPrevisaoDevolucao: previsao,
+        dataPrevisaoDevolucao: dataPrevisao,
         valorTotal,
         status: 'ATIVA'
       },
@@ -81,6 +108,7 @@ async function cadastrarLocacao(usuarioId, veiculoId, dataPrevisaoDevolucao) {
     return locacao;
   });
 }
+
 
 async function listarMinhasLocacoes(usuarioId) {
   return await prisma.locacao.findMany({
