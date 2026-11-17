@@ -1,0 +1,399 @@
+
+.dashboard {
+  min-height: 100vh;
+  display: flex;
+  background: #20242b;
+  color: #f5f6f8;
+}
+
+.sidebar {
+  width: 255px;
+  min-height: 100vh;
+  background: #191d23;
+  border-right: 1px solid #343b45;
+  padding: 28px 18px;
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 8px 35px;
+  border-bottom: 1px solid #343b45;
+}
+
+.sidebar-logo-icon {
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  background: #64748b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 23px;
+  font-weight: bold;
+}
+
+.sidebar-logo h2 {
+  font-size: 17px;
+  letter-spacing: 1px;
+}
+
+.sidebar-logo span {
+  color: #9ca3af;
+  font-size: 9px;
+  letter-spacing: 1px;
+}
+
+.menu-titulo {
+  margin: 32px 10px 15px;
+  color: #858e9b;
+  font-size: 10px;
+  font-weight: bold;
+  letter-spacing: 1.5px;
+}
+
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.menu-item,
+.menu-sair {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  width: 100%;
+  padding: 13px 14px;
+  border: none;
+  border-radius: 9px;
+  background: transparent;
+  color: #aab2bd;
+  text-align: left;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.menu-item:hover,
+.menu-sair:hover {
+  background: #2b3038;
+  color: white;
+}
+
+.menu-item.ativo {
+  background: #64748b;
+  color: white;
+}
+
+.menu-sair {
+  margin-top: auto;
+  color: #f18b8b;
+}
+
+.dashboard-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.dashboard-header {
+  min-height: 95px;
+  padding: 20px 35px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #343b45;
+  background: #252a32;
+}
+
+.dashboard-header h1 {
+  font-size: 23px;
+  margin-bottom: 5px;
+}
+
+.dashboard-header p {
+  color: #9ca3af;
+  font-size: 13px;
+}
+
+.header-usuario {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.usuario-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #394452;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-usuario strong,
+.header-usuario span {
+  display: block;
+}
+
+.header-usuario strong {
+  font-size: 13px;
+}
+
+.header-usuario span {
+  color: #9ca3af;
+  font-size: 11px;
+  margin-top: 4px;
+}
+
+.dashboard-content {
+  flex: 1;
+  padding: 32px 35px;
+}
+
+.pagina-em-construcao {
+  min-height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #aab2bd;
+}
+
+.pagina-em-construcao h2 {
+  color: white;
+  margin-bottom: 10px;
+}
+
+.pagina-em-construcao p {
+  font-size: 13px;
+}
+
+.dashboard-footer {
+  padding: 20px;
+  border-top: 1px solid #343b45;
+  text-align: center;
+  color: #858e9b;
+  font-size: 11px;
+}
+
+.botao-menu-mobile {
+  display: none;
+  background: transparent;
+  border: none;
+  color: white;
+}
+
+@media (max-width: 700px) {
+  .sidebar {
+    position: fixed;
+    z-index: 10;
+    left: -260px;
+    top: 0;
+    transition: 0.3s;
+  }
+
+  .sidebar.sidebar-aberta {
+    left: 0;
+  }
+
+  .dashboard-header {
+    padding: 18px;
+    gap: 12px;
+  }
+
+  .botao-menu-mobile {
+    display: block;
+  }
+
+  .dashboard-header h1 {
+    font-size: 18px;
+  }
+
+  .dashboard-content {
+    padding: 20px 15px;
+  }
+}
+
+
+
+.boas-vindas {
+  min-height: 170px;
+  padding: 30px 35px;
+  border: 1px solid #46515f;
+  border-radius: 15px;
+  background: linear-gradient(110deg, #343e4b, #29313b);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #c5ced9;
+}
+
+.boas-vindas span {
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: #b5c0ce;
+}
+
+.boas-vindas h2 {
+  font-size: 27px;
+  color: white;
+  margin: 12px 0 8px;
+}
+
+.boas-vindas p {
+  font-size: 13px;
+}
+
+.indicadores {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.indicador-card {
+  background: #2b3038;
+  border: 1px solid #414853;
+  border-radius: 13px;
+  padding: 21px;
+  min-width: 0;
+}
+
+.indicador-icone {
+  width: 42px;
+  height: 42px;
+  border-radius: 10px;
+  background: #394452;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #c4d0df;
+  margin-bottom: 17px;
+}
+
+.indicador-card span,
+.indicador-card strong,
+.indicador-card small {
+  display: block;
+}
+
+.indicador-card span {
+  color: #aab2bd;
+  font-size: 12px;
+}
+
+.indicador-card strong {
+  font-size: 27px;
+  margin: 9px 0;
+  overflow-wrap: anywhere;
+}
+
+.indicador-card .valor-indicador {
+  font-size: 21px;
+}
+
+.indicador-card small {
+  color: #858e9b;
+  font-size: 11px;
+}
+
+.painel-inferior {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 18px;
+  margin-top: 25px;
+}
+
+.painel-card {
+  background: #2b3038;
+  border: 1px solid #414853;
+  border-radius: 13px;
+  padding: 23px;
+}
+
+.painel-card h3 {
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.painel-card p {
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.atividade-vazia {
+  min-height: 125px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #858e9b;
+  font-size: 12px;
+  text-align: center;
+}
+
+.painel-card button {
+  width: 100%;
+  margin-top: 13px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #343e4b;
+  color: white;
+  border: 1px solid #46515f;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.painel-card button:hover {
+  background: #46515f;
+}
+
+.pagina-icone {
+  width: 75px;
+  height: 75px;
+  border-radius: 18px;
+  background: #343e4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 1050px) {
+  .indicadores {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 700px) {
+  .painel-inferior {
+    grid-template-columns: 1fr;
+  }
+
+  .boas-vindas {
+    padding: 22px;
+  }
+
+  .boas-vindas h2 {
+    font-size: 21px;
+  }
+
+  .boas-vindas > svg {
+    width: 45px;
+  }
+
+  .indicador-card {
+    padding: 15px;
+  }
+}

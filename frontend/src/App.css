@@ -1,0 +1,148 @@
+
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+  background:
+    radial-gradient(circle at top left, #39414d, transparent 40%),
+    #20242b;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  padding: 42px 35px;
+  background: #2b3038;
+  border: 1px solid #414853;
+  border-radius: 18px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 38px;
+}
+
+.logo-icon {
+  width: 58px;
+  height: 58px;
+  margin: 0 auto 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #64748b;
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  border-radius: 15px;
+}
+
+.login-logo h1 {
+  font-size: 23px;
+  letter-spacing: 2px;
+}
+
+.login-logo h1 span {
+  color: #aab2bd;
+}
+
+.login-logo p {
+  color: #9ca3af;
+  font-size: 10px;
+  margin-top: 8px;
+  letter-spacing: 2px;
+}
+
+.login-title {
+  margin-bottom: 25px;
+}
+
+.login-title h2 {
+  font-size: 25px;
+  margin-bottom: 8px;
+}
+
+.login-title p {
+  color: #aab2bd;
+  font-size: 14px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-form label {
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.login-form input {
+  height: 48px;
+  padding: 0 14px;
+  margin-bottom: 20px;
+  border-radius: 9px;
+  border: 1px solid #4b5563;
+  background: #20242b;
+  color: white;
+  outline: none;
+}
+
+.login-form input:focus {
+  border-color: #94a3b8;
+}
+
+.login-form button {
+  height: 49px;
+  margin-top: 8px;
+  background: #64748b;
+  border: none;
+  border-radius: 9px;
+  color: white;
+  font-weight: bold;
+  letter-spacing: 1px;
+  transition: 0.3s;
+}
+
+.login-form button:hover {
+  background: #8292a8;
+}
+
+.login-card footer {
+  margin-top: 35px;
+  text-align: center;
+  font-size: 11px;
+  color: #9ca3af;
+}
+
+
+
+.mensagem-erro {
+  color: #ff7777;
+  font-size: 13px;
+  margin-bottom: 15px;
+}
+
+.login-form button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.botao-sair {
+  width: 100%;
+  height: 49px;
+  margin-top: 20px;
+  background: #64748b;
+  border: none;
+  border-radius: 9px;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.botao-sair:hover {
+  background: #8292a8;
+}
