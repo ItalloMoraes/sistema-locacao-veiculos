@@ -49,16 +49,48 @@ function Veiculos() {
   }
 
   useEffect(() => {
-    carregarVeiculos();
+    let ativo = true;
+
+    async function buscarVeiculos() {
+      try {
+        const token = localStorage.getItem('token');
+
+        const resposta = await axios.get(
+          'http://localhost:3000/veiculos',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        if (ativo) {
+          setVeiculos(resposta.data);
+        }
+      } catch (error) {
+        if (ativo) {
+          setMensagem(
+            error.response?.data?.mensagem ||
+            'Erro ao carregar veículos.'
+          );
+        }
+      }
+    }
+
+    buscarVeiculos();
+
+    return () => {
+      ativo = false;
+    };
   }, []);
 
   function atualizarCampo(event) {
     const { name, value } = event.target;
 
-    setFormulario({
-      ...formulario,
+    setFormulario((anterior) => ({
+      ...anterior,
       [name]: value
-    });
+    }));
   }
 
   async function cadastrarVeiculo(event) {
@@ -276,7 +308,9 @@ function Veiculos() {
                     </div>
 
                     <div>
-                      <strong>{veiculo.marca} {veiculo.modelo}</strong>
+                      <strong>
+                        {veiculo.marca} {veiculo.modelo}
+                      </strong>
                       <small>ID: {veiculo.id}</small>
                     </div>
                   </div>

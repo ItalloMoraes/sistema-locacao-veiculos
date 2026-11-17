@@ -1,5 +1,5 @@
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import {
   CalendarDays,
@@ -20,14 +20,16 @@ function Locacoes() {
 
   const token = localStorage.getItem('token');
 
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  };
+const obterConfig = useCallback(() => ({
+  headers: {
+    Authorization: `Bearer ${token}`
+  }
+}), [token]);
 
   async function carregarDados() {
     try {
+      const config = obterConfig();
+
       const [respostaVeiculos, respostaLocacoes] = await Promise.all([
         axios.get('http://localhost:3000/veiculos', config),
         axios.get('http://localhost:3000/locacoes/minhas', config)
@@ -44,8 +46,37 @@ function Locacoes() {
   }
 
   useEffect(() => {
-    carregarDados();
-  }, []);
+    let ativo = true;
+
+    async function buscarDados() {
+      try {
+        const config = obterConfig();
+
+        const [respostaVeiculos, respostaLocacoes] = await Promise.all([
+          axios.get('http://localhost:3000/veiculos', config),
+          axios.get('http://localhost:3000/locacoes/minhas', config)
+        ]);
+
+        if (ativo) {
+          setVeiculos(respostaVeiculos.data);
+          setLocacoes(respostaLocacoes.data);
+        }
+      } catch (error) {
+        if (ativo) {
+          setMensagem(
+            error.response?.data?.mensagem ||
+            'Erro ao carregar os dados das locações.'
+          );
+        }
+      }
+    }
+
+    buscarDados();
+
+    return () => {
+      ativo = false;
+    };
+}, [obterConfig]);
 
   async function realizarLocacao(event) {
     event.preventDefault();
@@ -59,7 +90,7 @@ function Locacoes() {
           veiculoId: Number(veiculoId),
           dataPrevisaoDevolucao
         },
-        config
+        obterConfig()
       );
 
       setMensagem('Locação realizada com sucesso!');
@@ -90,7 +121,7 @@ function Locacoes() {
       await axios.patch(
         `http://localhost:3000/locacoes/${locacaoId}/devolucao`,
         {},
-        config
+        obterConfig()
       );
 
       setMensagem('Veículo devolvido com sucesso!');

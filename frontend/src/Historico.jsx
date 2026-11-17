@@ -15,35 +15,35 @@ function Historico() {
   const [carregando, setCarregando] = useState(true);
   const [mensagem, setMensagem] = useState('');
 
-  async function carregarHistorico() {
-    try {
-      const token = localStorage.getItem('token');
-
-      const resposta = await axios.get(
-        'http://localhost:3000/locacoes/minhas',
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      );
-
-      const finalizadas = resposta.data.filter(
-        (locacao) => locacao.status === 'FINALIZADA'
-      );
-
-      setLocacoes(finalizadas);
-    } catch (error) {
-      setMensagem(
-        error.response?.data?.mensagem ||
-        'Erro ao carregar o histórico de locações.'
-      );
-    } finally {
-      setCarregando(false);
-    }
-  }
-
   useEffect(() => {
+    async function carregarHistorico() {
+      try {
+        const token = localStorage.getItem('token');
+
+        const resposta = await axios.get(
+          'http://localhost:3000/locacoes/minhas',
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const finalizadas = resposta.data.filter(
+          (locacao) => locacao.status === 'FINALIZADA'
+        );
+
+        setLocacoes(finalizadas);
+      } catch (error) {
+        setMensagem(
+          error.response?.data?.mensagem ||
+          'Erro ao carregar o histórico de locações.'
+        );
+      } finally {
+        setCarregando(false);
+      }
+    }
+
     carregarHistorico();
   }, []);
 
